@@ -18,6 +18,7 @@ namespace QuickstartIdentityServer
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
+                new IdentityResources.Email()
             };
         }
 
@@ -75,6 +76,25 @@ namespace QuickstartIdentityServer
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile
                     }
+                },
+
+                // OpenID Connect implicit flow client (Web Forms)
+                new Client
+                {
+                    ClientId = "webforms.owin.implicit",
+                    ClientName = "Web Forms Client",
+                    AllowAccessTokensViaBrowser = true,
+                    AllowedGrantTypes = GrantTypes.Implicit,
+
+                    RedirectUris = { "http://localhost:5969/" },
+                    PostLogoutRedirectUris = { "http://localhost:5969/" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email
+                    }
                 }
             };
         }
@@ -92,7 +112,8 @@ namespace QuickstartIdentityServer
                     Claims = new List<Claim>
                     {
                         new Claim("name", "Alice"),
-                        new Claim("website", "https://alice.com")
+                        new Claim("website", "https://alice.com"),
+                        new Claim("email", "alice@test.com")
                     }
                 },
                 new TestUser
